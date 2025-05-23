@@ -1,0 +1,31 @@
+1 - Como foi feita a integração com a API do ViaCEP?
+
+Foi usada a função fetch() para chamar o endpoint do ViaCEP com o CEP informado, recebendo os dados de endereço em formato JSON.
+
+2 - Como a imagem aleatória foi gerada?
+
+Foi usada a URL do Unsplash.
+
+3 - Como você utilizou o LocalStorage?
+
+Não foi utilizado LocalStorage os dados só vão ficar durante a sessão
+
+4 - Como você organizou os cards na tela?
+
+Os voluntários são exibidos em uma tabela com linhas (rows), cada uma com foto, nome, email, CEP e endereço.
+
+5 - Como foi implementado o sistema de login e controle de acesso?
+
+O login é feito com usuário e senha fixos; ao entrar, mostra a área principal e ocuta a tela de login.
+
+6 - Como foi feito o controle de e-mail duplicado?
+
+Antes de cadastrar, verifica se já existe um voluntário com o mesmo email na lista.
+
+7 - Como foi implementado o redirecionamento após 5 minutos de inatividade?
+
+
+
+8 - O que você faria diferente se fosse um projeto real?
+
+Usaria o banco de dados para poder armazenar. 
