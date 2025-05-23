@@ -154,12 +154,14 @@ document.getElementById('cadastroForm').onsubmit = async function(e) {
 function renderLista() {
     const tbody = document.getElementById('voluntariosBody');
     tbody.innerHTML = '';
+
+    const emojis = ['😀', '😃', '😄', '😁', '😆', '😅', '😂', '🤣', '😊', '😉', '😎', '😍', '🤩', '🥳', '🤗', '😇', '🤠', '😺', '🐱', '🐶'];
+
     voluntarios.forEach(v => {
+        const emoji = emojis[Math.floor(Math.random() * emojis.length)];
         const tr = document.createElement('tr');
-        const nomeUrl = encodeURIComponent(v.nome.trim().split(" ").join(","));
-        const imgUrl = `https://source.unsplash.com/160x160/?voluntario,${nomeUrl}`;
         tr.innerHTML = `
-            <td><img src="${imgUrl}" alt="Foto de ${v.nome}" width="60" height="60" style="border-radius: 50%; object-fit: cover;"></td>
+            <td style="font-size: 2.5rem; text-align: center;">${emoji}</td>
             <td>${v.nome}</td>
             <td>${v.email}</td>
             <td>${v.cep}</td>

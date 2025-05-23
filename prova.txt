@@ -4,7 +4,7 @@ Foi usada a função fetch() para chamar o endpoint do ViaCEP com o CEP informad
 
 2 - Como a imagem aleatória foi gerada?
 
-Foi usada a URL do Unsplash.
+Foi usada outro metodo
 
 3 - Como você utilizou o LocalStorage?
 
