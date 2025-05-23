@@ -66,8 +66,7 @@ function buscarEndereco() {
 
 // Função para retornar emoji baseado na descrição do clima
 function emojiDoClima(descricao) {
-    if (!descricao) return '🌈'; // emoji neutro
-    
+    if (!descricao) return '🌈';
     const desc = descricao.toLowerCase();
     if (desc.includes('sun') || desc.includes('clear')) return '☀️';
     if (desc.includes('cloud')) return '☁️';
@@ -76,7 +75,7 @@ function emojiDoClima(descricao) {
     if (desc.includes('snow')) return '❄️';
     if (desc.includes('fog') || desc.includes('mist')) return '🌫️';
     if (desc.includes('wind')) return '🌬️';
-    return '🌈'; // default
+    return '🌈';
 }
 
 // Buscar clima
@@ -109,9 +108,10 @@ async function buscarClima(cidade) {
     }
 }
 
-// Cadastro de voluntário
-document.getElementById('cadastroForm').onsubmit = function(e) {
+// Cadastro de voluntário (async para aguardar o clima)
+document.getElementById('cadastroForm').onsubmit = async function(e) {
     e.preventDefault();
+
     const nome = document.getElementById('nome').value.trim();
     const email = document.getElementById('email').value.trim();
     const cep = document.getElementById('cep').value.trim();
@@ -124,13 +124,21 @@ document.getElementById('cadastroForm').onsubmit = function(e) {
         return;
     }
 
-    // Verifica email duplicado (ignorando caixa)
     const emailExistente = voluntarios.some(v => v.email.toLowerCase() === email.toLowerCase());
     if (emailExistente) {
         document.getElementById('cadastroMsg').style.color = 'red';
         document.getElementById('cadastroMsg').textContent = "Este email já está cadastrado.";
         alert("Este email já está cadastrado.");
         return;
+    }
+
+    // Aqui aguardamos o clima carregar antes de confirmar o cadastro
+    try {
+        // Extrai a cidade do endereço (assumindo formato "... cidade - UF")
+        const cidade = endereco.split(' - ')[0].split(' ').slice(-1)[0] || endereco.split(' - ')[0];
+        await buscarClima(cidade);
+    } catch {
+        // Erros já tratados dentro de buscarClima()
     }
 
     voluntarios.push({ nome, email, cep, endereco });
@@ -142,13 +150,21 @@ document.getElementById('cadastroForm').onsubmit = function(e) {
     alert("Voluntário cadastrado com sucesso!");
 };
 
-// Lista de voluntários
+// Lista de voluntários com imagem
 function renderLista() {
     const tbody = document.getElementById('voluntariosBody');
     tbody.innerHTML = '';
     voluntarios.forEach(v => {
         const tr = document.createElement('tr');
-        tr.innerHTML = `<td>${v.nome}</td><td>${v.email}</td><td>${v.cep}</td><td>${v.endereco}</td>`;
+        const nomeUrl = encodeURIComponent(v.nome.trim().split(" ").join(","));
+        const imgUrl = `https://source.unsplash.com/160x160/?voluntario,${nomeUrl}`;
+        tr.innerHTML = `
+            <td><img src="${imgUrl}" alt="Foto de ${v.nome}" width="60" height="60" style="border-radius: 50%; object-fit: cover;"></td>
+            <td>${v.nome}</td>
+            <td>${v.email}</td>
+            <td>${v.cep}</td>
+            <td>${v.endereco}</td>
+        `;
         tbody.appendChild(tr);
     });
 }

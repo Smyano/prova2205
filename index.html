@@ -3,9 +3,12 @@
 <head>
     <meta charset="UTF-8" />
     <title>Prova 22/05</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-pap5E3qVqP9z1LZ3w1rH9Ksx5n1zpBZeqfdT1JycA+Db+Gv5YOuwG9AEdZDpMGFzZy0eUyRjAt4iW7uVcd6fsA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+
+
     <div id="login" class="container">
         <h2>Login</h2>
         <form id="loginForm">
@@ -41,14 +44,19 @@
         </div>
 
         <div id="listaVoluntarios" class="hidden">
+            <div class="filter-bar">
+                <input type="text" placeholder="🔍 Buscar por nome..." id="buscaVoluntario" />
+                <button class="clear-btn">Limpar</button>
+            </div>
             <h2>Lista de Voluntários</h2>
             <table>
                 <thead>
                     <tr>
-                        <th>Nome</th>
-                        <th>Email</th>
-                        <th>CEP</th>
-                        <th>Endereço</th>
+                        <th><i class="fas fa-image"></i> Foto</th>
+                        <th><i class="fas fa-user"></i> Nome</th>
+                        <th><i class="fas fa-envelope"></i> Email</th>
+                        <th><i class="fas fa-map-marker-alt"></i> CEP</th>
+                        <th><i class="fas fa-home"></i> Endereço</th>
                     </tr>
                 </thead>
                 <tbody id="voluntariosBody"></tbody>
